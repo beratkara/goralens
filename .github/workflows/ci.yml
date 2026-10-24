@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ["1.25", "1.26"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: gofmt
+        run: test -z "$(gofmt -l .)"
+      - name: Vet and test
+        run: |
+          go vet ./...
+          go test -race ./...
+      - name: Example application
+        working-directory: examples/basic
+        run: go test -race ./...
+      - name: Redis hook
+        working-directory: redishook
+        run: |
+          go vet ./...
+          go test ./...
+      - name: JavaScript syntax
+        run: node --check ui/app.js

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Goralens</title>
+  <link rel="stylesheet" href="{{BASE}}/app.css">
+  <script>
+    // Apply the saved theme before the first paint.
+    (function () {
+      var theme = 'system';
+      try { theme = localStorage.getItem('goralens-theme') || 'system'; } catch (e) {}
+      if (theme !== 'system') document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body data-base="{{BASE}}" data-token-key="{{TOKEN_KEY}}">
+  <a class="skip-link" href="#view">Skip to content</a>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="Navigation">
+      <div class="sidebar-head">
+        <a class="brand" href="#/requests" aria-label="Goralens home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><circle cx="14" cy="14" r="9" fill="none" stroke="currentColor" stroke-width="3"/><path d="M21 21l7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="14" cy="14" r="3" fill="currentColor"/></svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">Goralens</span>
+            <span class="brand-sub">Debug assistant</span>
+          </span>
+        </a>
+        <button class="icon-button close-menu" id="close-menu" type="button" aria-label="Close menu"></button>
+      </div>
+      <nav id="nav" class="nav" aria-label="Watchers"></nav>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-button menu" id="menu" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false"></button>
+        <div class="heading">
+          <h1 id="title">Requests</h1>
+          <p id="subtitle" class="subtitle"></p>
+        </div>
+        <div class="actions">
+          <label class="search" for="tag">
+            <span class="visually-hidden">Filter by tag</span>
+            <span class="search-icon" id="search-icon" aria-hidden="true"></span>
+            <input id="tag" type="search" placeholder="Filter by tag…" autocomplete="off" spellcheck="false">
+            <kbd class="search-key" aria-hidden="true">/</kbd>
+          </label>
+          <div class="toolbar" role="group" aria-label="Recording controls">
+            <button class="tool" id="refresh" type="button" aria-pressed="false" title="Load new entries every 3 seconds"></button>
+            <button class="tool" id="recording" type="button" aria-pressed="true" title="Pause or resume recording"></button>
+            <button class="tool danger" id="clear" type="button" title="Delete all recorded entries"></button>
+          </div>
+          <button class="icon-button" id="theme" type="button"></button>
+        </div>
+      </header>
+      <main id="view" class="view" tabindex="-1" aria-live="polite"></main>
+    </div>
+  </div>
+  <script src="{{BASE}}/app.js"></script>
+</body>
+</html>

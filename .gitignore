@@ -1,0 +1,6 @@
+/examples/*/storage/
+/examples/*/database.sqlite
+*.test
+coverage.out
+.idea/
+.vscode/
