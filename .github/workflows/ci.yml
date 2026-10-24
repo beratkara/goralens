@@ -32,3 +32,10 @@ jobs:
           go test ./...
       - name: JavaScript syntax
         run: node --check ui/app.js
+      - name: Coverage
+        if: matrix.go == '1.26'
+        run: |
+          mkdir -p "$RUNNER_TEMP/cover/unit" "$RUNNER_TEMP/cover/example"
+          go test -cover -coverpkg=github.com/beratkara/goralens . -args -test.gocoverdir="$RUNNER_TEMP/cover/unit"
+          (cd examples/basic && go test -cover -coverpkg=github.com/beratkara/goralens . -args -test.gocoverdir="$RUNNER_TEMP/cover/example")
+          go tool covdata percent -i="$RUNNER_TEMP/cover/unit,$RUNNER_TEMP/cover/example" -pkg=github.com/beratkara/goralens

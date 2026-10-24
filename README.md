@@ -625,6 +625,16 @@ go test ./...
 (cd redishook && go test ./...)
 ```
 
+Test coverage of the package, from the unit tests and the example application together (72.5%
+for v0.1.0):
+
+```bash
+mkdir -p /tmp/cover/unit /tmp/cover/example
+go test -cover -coverpkg=github.com/beratkara/goralens . -args -test.gocoverdir=/tmp/cover/unit
+(cd examples/basic && go test -cover -coverpkg=github.com/beratkara/goralens . -args -test.gocoverdir=/tmp/cover/example)
+go tool covdata percent -i=/tmp/cover/unit,/tmp/cover/example -pkg=github.com/beratkara/goralens
+```
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
